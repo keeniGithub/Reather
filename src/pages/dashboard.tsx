@@ -1,4 +1,4 @@
-import CurrentWeather from "@/components/current";
+import type { Geocode } from "@/api/types";
 import LoadingSkeleton from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
 import { useForecast } from "@/hooks/use-forecast";
@@ -7,6 +7,10 @@ import { useGeolocation } from "@/hooks/use-geolocation";
 import { useWether } from "@/hooks/use-weather";
 import { RefreshCw } from "lucide-react";
 import toast from "react-hot-toast";
+import Weather from "@/components/weather";
+import Temperature from "@/components/temperature";
+import Details from "@/components/details";
+import Forecast from "@/components/forecast";
 
 export default function Dashboard() {
   const { coordinates, error: locError, getLocation, isLoading: locLoading } = useGeolocation()
@@ -33,7 +37,7 @@ export default function Dashboard() {
   if (!coordinates)
     toast.error('Location not found. Please enable location services in your browser')
 
-  const locationName = location.data?.[0] || 'Unknown Location'
+  const locationData: Geocode | undefined = location.data?.[0]
 
   if (weather.error || forecast.error)
     toast.error('Error fetching weather data. Please try again')
@@ -48,12 +52,14 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6">
-        <div>
-          <CurrentWeather data={weather.data} location={locationName} />
+        <div className="flex flex-col lg:flex-row gap-4">
+          <Weather data={weather.data} location={locationData} />
+          <Temperature data={forecast.data} />
         </div>
 
-        <div>
-
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+          <Details data={weather.data}/>
+          <Forecast data={forecast.data} />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ModeToggle } from "./ui/mode-toggle";
 import { useTheme } from "./provider/theme-provider";
+import Search from "./search";
 
 export default function Header() {
     const { theme } = useTheme()
@@ -12,8 +13,8 @@ export default function Header() {
                     <img src={theme === "dark" ? "/logo.png" : "/logo2.png"} alt="Reather logo" className="h-10"/>
                 </Link>
 
-                <div>
-
+                <div className="flex gap-3">
+                    <Search />
                     <ModeToggle/>
                 </div>
             </div>
