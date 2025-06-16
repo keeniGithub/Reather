@@ -11,6 +11,7 @@ import Weather from "@/components/weather";
 import Temperature from "@/components/temperature";
 import Details from "@/components/details";
 import Forecast from "@/components/forecast";
+import { FavoriteList } from "@/components/favorite";
 
 export default function Dashboard() {
   const { coordinates, error: locError, getLocation, isLoading: locLoading } = useGeolocation()
@@ -44,6 +45,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4">
+      <FavoriteList/>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
         <Button variant="outline" size="icon" onClick={handleRefresh} disabled={weather.isFetching || forecast.isFetching}>

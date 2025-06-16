@@ -1,4 +1,5 @@
 import Details from "@/components/details"
+import { FavoriteButton } from "@/components/favorite"
 import Forecast from "@/components/forecast"
 import LoadingSkeleton from "@/components/skeleton"
 import Temperature from "@/components/temperature"
@@ -29,7 +30,7 @@ export default function City() {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">{forecast.data.city.name}, {weather.data.sys.country}</h1>
         <div>
-          favorite
+          <FavoriteButton data={weather.data}/>
         </div>
       </div>
 
